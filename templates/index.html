@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Smart Expense Tracker</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>💰 Smart Expense Tracker</h1>
+
+    <p>Manage your daily expenses easily</p>
+
+
+    <h3>Set Your Budget</h3>
+
+    <form action="/budget" method="POST">
+
+        <input
+            name="budget"
+            type="number"
+            placeholder="Enter Budget ₹"
+            required
+        >
+
+        <button type="submit">
+            Set Budget
+        </button>
+
+    </form>
+
+
+    <h3>Budget: ₹{{ budget }}</h3>
+
+
+    <hr>
+
+
+    <h3>Add Purchase</h3>
+
+    <form action="/add" method="POST">
+
+        <input
+            name="name"
+            type="text"
+            placeholder="Purchase name"
+            required
+        >
+
+        <input
+            name="amount"
+            type="number"
+            placeholder="Amount ₹"
+            required
+        >
+
+        <button type="submit">
+            Add Purchase
+        </button>
+
+    </form>
+
+
+    <h3>My Purchases</h3>
+
+
+    {% if expenses %}
+
+        {% for x in expenses %}
+
+        <div class="expense">
+
+            <span>
+                🛒 {{ x[0] }} - ₹{{ x[1] }}
+            </span>
+
+            <a href="/delete/{{ loop.index0 }}">
+                Delete
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No purchases added yet.</p>
+
+    {% endif %}
+
+
+    <hr>
+
+
+    <div class="summary">
+
+        <h3>Total Spent: ₹{{ total }}</h3>
+
+        <h3>Remaining Amount: ₹{{ remaining }}</h3>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
